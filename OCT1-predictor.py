@@ -67,7 +67,7 @@ The tool uses the following packages [RDKIT](https://www.rdkit.org/docs/index.ht
 
 
 image = Image.open('workflow_OCTapp.png')
-st.image(image, caption='OCT1 substrate predictor workflow')
+st.image(image, caption='Glass Transition Temperature predictor workflow')
 
 
 #---------------------------------#
