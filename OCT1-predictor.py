@@ -32,7 +32,7 @@ import base64
 #---------------------------------#
 # Page layout
 ## Page expands to full width
-st.set_page_config(page_title='LiADME- OCT1 substrate predictor', page_icon=":computer:", layout='wide')
+st.set_page_config(page_title='Tg - ML predictor', page_icon=":computer:", layout='wide')
 
 ######
 # Function to put a picture as header   
@@ -44,9 +44,9 @@ def img_to_bytes(img_path):
 image = Image.open('cropped-header.png')
 st.image(image)
 
-st.write("[![Website](https://img.shields.io/badge/website-LIDeB-blue)](https://lideb.biol.unlp.edu.ar)[![Twitter Follow](https://img.shields.io/twitter/follow/LIDeB_UNLP?style=social)](https://twitter.com/intent/follow?screen_name=LIDeB_UNLP)")
+st.write("[![Website](https://img.shields.io/badge/website-Rasulev Research Group-blue)](https://rasulev.org)[![Twitter Follow](https://img.shields.io/twitter/follow/RasulevResearchGroup?style=social)](https://twitter.com/intent/follow?screen_name=RasulevResearchGroup)")
 st.subheader("📌" "About Us")
-st.markdown("We are a drug discovery team with an interest in the development of publicly available open-source customizable cheminformatics tools to be used in computer-assisted drug discovery. We belong to the Laboratory of Bioactive Research and Development (LIDeB) of the National University of La Plata (UNLP), Argentina. Our research group is focused on computer-guided drug repurposing and rational discovery of new drug candidates to treat epilepsy and neglected tropical diseases.")
+st.markdown("In our Computational Polymer Science Lab, we conduct research and investigations using computational methods to gain insights into the fascinating world of polymers and macromolecules. Our work involves simulating and modeling the behavior, properties, and interactions of polymer materials at the molecular and atomic scales. We explore various aspects of polymer science, from understanding their fundamental structures to predicting their mechanical, thermal, and thermodynamic properties. Our goal is to advance the field of polymer science by developing new computational techniques, optimizing polymer synthesis processes, designing innovative materials with tailored properties, and contributing to real-world applications in areas such as materials engineering, nanotechnology, and biomedicine. Through the synergy of computational power and scientific expertise, we strive to unlock the potential of polymers and drive innovation in a wide range of industries.")
 
 
 # Introduction
@@ -56,21 +56,9 @@ st.title(':computer: _OCT1 Substrate predictor_ ')
 
 st.write("""
 
-**It is a free web-application for Organic cation transporter 1 (OCT1) Substrate Prediction**
+**It is a free web-application for Glass Transition Temperature Prediction**
 
-Organic Cation Transporters (OCTs) are members of the Solute Carrier (SLC) group of transporters and belong to the Major Facilitator superfamily.
-According to the Human Genome Organization, they are assigned to the SLC22A family, which includes electrogenic and electroneutral organic cation transporters and Organic Anion Transporters (OATs),
-a large group of carriers involved in the uptake of organic anions. 
-OCTs are multispecific, bidirectional carriers that transport organic cations and are critically involved in the absorption, disposition, and excretion of many exogenous compounds.
-In humans, organic cation transporters from the SLC22A family include OCT1 (SLC22A1), OCT2 (SLC22A2), OCT3 (SLC22A3), OCT1 is mainly found in the liver (basolateral membrane of hepatocytes).
-Low expression levels of OCT1 have also been detected in other tissues, including the intestine, kidneys, lungs, and brain..
 
-Why is it important to predict whether a molecule is an OCT1 substrate? 
-Numerous clinically relevant drugs (e.g. metformin, morphine, fenoterol, sumatriptan, tramadol and tropisetron) have been shown to be substrates of OCT1, 
-and OCT1 deficiency has been shown to affect the pharmacokinetics, efficacy, or toxicity of these drugs.
-(https://www.frontiersin.org/research-topics/11452/organic-cation-transporter-1-oct1-not-vital-for-life-but-of-substantial-biomedical-relevance)
-
-The OCT1 Substrate predictor is a Web App that ensembles 14 linear models to classify molecules as OCT1 substrates or OCT1 non-substrates. 
 
 The tool uses the following packages [RDKIT](https://www.rdkit.org/docs/index.html), [Mordred](https://github.com/mordred-descriptor/mordred), [MOLVS](https://molvs.readthedocs.io/), [Openbabel](https://github.com/openbabel/openbabel)
 
@@ -568,10 +556,10 @@ text-align: center;
 <div class="footer">
 <p>Made in  🐍 and <img style='display: ; 
 ' href="https://streamlit.io" src="https://i.imgur.com/iIOA6kU.png" target="_blank"></img> Developed with ❤️ by <a style='display: ;
- text-align: center' href="https://twitter.com/maxifallico" target="_blank">Maximiliano Fallico</a> ,  <a style='display:; 
+ text-align: center' href="https://twitter.com/gmaikelc" target="_blank">Gerardo M. Casanola</a> ,  <a style='display:; 
  text-align: center' href="https://twitter.com/capigol" target="_blank">Lucas Alberca</a> and <a style='display: ; 
  text-align: center' href="https://twitter.com/carobellera" target="_blank">Caro Bellera</a> for <a style='display: ; 
- text-align: center;' href="https://lideb.biol.unlp.edu.ar/" target="_blank">LIDeB</a></p>
+ text-align: center;' href="https://rasulev.org/" target="_blank">Rasulev Research Group</a></p>
 </div>
 """
 st.markdown(footer,unsafe_allow_html=True)
