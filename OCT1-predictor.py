@@ -44,7 +44,7 @@ def img_to_bytes(img_path):
 image = Image.open('cropped-header.png')
 st.image(image)
 
-st.write("[![Website](https://img.shields.io/badge/website-Rasulev Research Group-blue)](https://rasulev.org)[![Twitter Follow](https://img.shields.io/twitter/follow/RasulevResearchGroup?style=social)](https://twitter.com/intent/follow?screen_name=RasulevResearchGroup)")
+st.write("[![Website](https://img.shields.io/badge/website-RasulevResearchGroup-blue)](https://rasulev.org)[![Twitter Follow](https://img.shields.io/twitter/follow/RasulevResearchGroup?style=social)](https://twitter.com/intent/follow?screen_name=RasulevResearchGroup)")
 st.subheader("📌" "About Us")
 st.markdown("In our Computational Polymer Science Lab, we conduct research and investigations using computational methods to gain insights into the fascinating world of polymers and macromolecules. Our work involves simulating and modeling the behavior, properties, and interactions of polymer materials at the molecular and atomic scales. We explore various aspects of polymer science, from understanding their fundamental structures to predicting their mechanical, thermal, and thermodynamic properties. Our goal is to advance the field of polymer science by developing new computational techniques, optimizing polymer synthesis processes, designing innovative materials with tailored properties, and contributing to real-world applications in areas such as materials engineering, nanotechnology, and biomedicine. Through the synergy of computational power and scientific expertise, we strive to unlock the potential of polymers and drive innovation in a wide range of industries.")
 
@@ -52,7 +52,7 @@ st.markdown("In our Computational Polymer Science Lab, we conduct research and i
 # Introduction
 #---------------------------------#
 
-st.title(':computer: _OCT1 Substrate predictor_ ')
+st.title(':computer: _Glass Transition Temperature Predictor_ ')
 
 st.write("""
 
