@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 """
-Created on Mon Sep 14 17:41:37 2020
+Created on Mon Oct 10 17:41:37 2023
 
-@author: Lucas
+@author: Gerardo
 """
 
 
@@ -32,7 +32,7 @@ import base64
 #---------------------------------#
 # Page layout
 ## Page expands to full width
-st.set_page_config(page_title='LiADME- OCT1 substrate predictor', page_icon=":computer:", layout='wide')
+st.set_page_config(page_title='ADB Class predictor', page_icon=":computer:", layout='wide')
 
 ######
 # Function to put a picture as header   
@@ -44,7 +44,7 @@ def img_to_bytes(img_path):
 image = Image.open('cropped-header.png')
 st.image(image)
 
-st.write("[![Website](https://img.shields.io/badge/website-LIDeB-blue)](https://lideb.biol.unlp.edu.ar)[![Twitter Follow](https://img.shields.io/twitter/follow/LIDeB_UNLP?style=social)](https://twitter.com/intent/follow?screen_name=LIDeB_UNLP)")
+st.write("[![Website](https://img.shields.io/badge/website-ADB-blue)](https://www.adbclass.org)[![Twitter Follow](https://img.shields.io/twitter/follow/adbclass?style=social)](https://twitter.com/intent/follow?screen_name=LIDeB_UNLP)")
 st.subheader("📌" "About Us")
 st.markdown("We are a drug discovery team with an interest in the development of publicly available open-source customizable cheminformatics tools to be used in computer-assisted drug discovery. We belong to the Laboratory of Bioactive Research and Development (LIDeB) of the National University of La Plata (UNLP), Argentina. Our research group is focused on computer-guided drug repurposing and rational discovery of new drug candidates to treat epilepsy and neglected tropical diseases.")
 
@@ -52,25 +52,22 @@ st.markdown("We are a drug discovery team with an interest in the development of
 # Introduction
 #---------------------------------#
 
-st.title(':computer: _OCT1 Substrate predictor_ ')
+st.title(':computer: _Amylase Class predictor_ ')
 
 st.write("""
 
-**It is a free web-application for Organic cation transporter 1 (OCT1) Substrate Prediction**
+**It is a free web-application for Amylse Inhibitor Prediction**
 
-Organic Cation Transporters (OCTs) are members of the Solute Carrier (SLC) group of transporters and belong to the Major Facilitator superfamily.
-According to the Human Genome Organization, they are assigned to the SLC22A family, which includes electrogenic and electroneutral organic cation transporters and Organic Anion Transporters (OATs),
-a large group of carriers involved in the uptake of organic anions. 
-OCTs are multispecific, bidirectional carriers that transport organic cations and are critically involved in the absorption, disposition, and excretion of many exogenous compounds.
-In humans, organic cation transporters from the SLC22A family include OCT1 (SLC22A1), OCT2 (SLC22A2), OCT3 (SLC22A3), OCT1 is mainly found in the liver (basolateral membrane of hepatocytes).
-Low expression levels of OCT1 have also been detected in other tissues, including the intestine, kidneys, lungs, and brain..
+α‐glucosidase and α‐amylase are two key enzymes in insulin adjustment, their inhibition is a therapeutic target for retarding 
+glucose absorption and suppressing postprandial hyperglycemia. For this reason, DM can be controlled by α‐glucosidase 
+inhibitors that suppress carbohydrate digestion.
 
-Why is it important to predict whether a molecule is an OCT1 substrate? 
-Numerous clinically relevant drugs (e.g. metformin, morphine, fenoterol, sumatriptan, tramadol and tropisetron) have been shown to be substrates of OCT1, 
-and OCT1 deficiency has been shown to affect the pharmacokinetics, efficacy, or toxicity of these drugs.
-(https://www.frontiersin.org/research-topics/11452/organic-cation-transporter-1-oct1-not-vital-for-life-but-of-substantial-biomedical-relevance)
+Why is it important to predict whether a molecule is an amylase inhibitor? 
+The hydrolysis of α‐(1,4) glucosidic bonds and production of glucose, maltose and dextrins from starch are catalyzed by α‐amylase, 
+whereas α‐glucosidase degrades produced oligosaccharides to glucose, which is absorbed into the bloodstream via the intestinal epithelium. 
+Subsequently, the inhibition of these hydrolytic enzymes may reduce postprandial hyperglycemia and therefore delay the absorption of glucose.
 
-The OCT1 Substrate predictor is a Web App that ensembles 14 linear models to classify molecules as OCT1 substrates or OCT1 non-substrates. 
+The ADB Class predictor is a Web App that ensembles 2 linear models to classify molecules as amylase inhibitors or amylase non-inhibitors. 
 
 The tool uses the following packages [RDKIT](https://www.rdkit.org/docs/index.html), [Mordred](https://github.com/mordred-descriptor/mordred), [MOLVS](https://molvs.readthedocs.io/), [Openbabel](https://github.com/openbabel/openbabel)
 
@@ -79,14 +76,14 @@ The tool uses the following packages [RDKIT](https://www.rdkit.org/docs/index.ht
 
 
 image = Image.open('workflow_OCTapp.png')
-st.image(image, caption='OCT1 substrate predictor workflow')
+st.image(image, caption='ADB predictor workflow')
 
 
 #---------------------------------#
 # Sidebar - Collects user input features into dataframe
 st.sidebar.header('Upload your SMILES')
 st.sidebar.markdown("""
-[Example TXT input file](https://raw.githubusercontent.com/LIDeB/OCT1-predictor/main/example_file.txt)        
+[Example TXT input file](https://raw.githubusercontent.com/gmaikelc/adb-class-ml/main/example_file.txt)        
 """)
 
 uploaded_file_1 = st.sidebar.file_uploader("Upload a TXT file with one SMILES per line", type=["txt"])
@@ -97,25 +94,25 @@ uploaded_file_1 = st.sidebar.file_uploader("Upload a TXT file with one SMILES pe
 
 def estandarizador(df):
     s = Standardizer()
-    moleculas = df[0].tolist()
-    moleculas_estandarizadas = []
+    molecules = df[0].tolist()
+    std_molecules = []
     i = 1
     t = st.empty()
 
-    for molecula in moleculas:
+    for molecule in molecules:
         try:
-            smiles = molecula.strip()
+            smiles = molecule.strip()
             mol = Chem.MolFromSmiles(smiles)
             standarized_mol = s.super_parent(mol) 
-            smiles_estandarizado = Chem.MolToSmiles(standarized_mol)
-            moleculas_estandarizadas.append(smiles_estandarizado)
-            # st.write(f'\rProcessing molecule {i}/{len(moleculas)}', end='', flush=True)
-            t.markdown("Processing molecules: " + str(i) +"/" + str(len(moleculas)))
+            std_smiles = Chem.MolToSmiles(standarized_mol)
+            std_molecules.append(std_smiles)
+            # st.write(f'\rProcessing molecule {i}/{len(molecules)}', end='', flush=True)
+            t.markdown("Processing molecules: " + str(i) +"/" + str(len(molecules)))
 
             i = i + 1
         except:
-            moleculas_estandarizadas.append(molecula)
-    df['standarized_SMILES'] = moleculas_estandarizadas
+            std_molecules.append(molecule)
+    df['standarized_SMILES'] = std_molecules
     return df
 
 
@@ -271,25 +268,25 @@ def formal_charge_calculation(descriptores):
     return descriptores
 
 
-#%% Calculating molecular descriptors
+#%% Calculating moleculer descriptors
 ### ----------------------- ###
 
-def calcular_descriptores(data):
+def descriptor_calculator(data):
     
     data1x = pd.DataFrame()
-    df_quasi_final_estandarizado = estandarizador(data)
-    suppl = list(df_quasi_final_estandarizado["standarized_SMILES"])
+    df_quasi_last_std = estandarizador(data)
+    suppl = list(df_quasi_last_std["standarized_SMILES"])
 
     smiles_ph_ok = []
     t = st.empty()
 
-    for i,molecula in enumerate(suppl):
-        smiles_ionized = charges_ph(molecula, 7.4)
+    for i,molecule in enumerate(suppl):
+        smiles_ionized = charges_ph(molecule, 7.4)
         smile_checked = smile_obabel_corrector(smiles_ionized)
         smile_final = smile_checked.rstrip()
         smiles_ph_ok.append(smile_final)
         
-    df_quasi_final_estandarizado["Final_SMILES"] = smiles_ph_ok
+    df_quasi_last_std["Final_SMILES"] = smiles_ph_ok
     
     calc = Calculator(descriptors, ignore_3D=True) 
     # t = st.empty()
@@ -303,11 +300,11 @@ def calcular_descriptores(data):
                         freeze_support()
                         descriptor1 = calc(mol)
                         resu = descriptor1.asdict()
-                        solo_nombre = {'NAME' : f'SMILES_{i+1}'}
-                        solo_nombre.update(resu)
+                        only_name = {'NAME' : f'SMILES_{i+1}'}
+                        only_name.update(resu)
 
-                        solo_nombre = pd.DataFrame.from_dict(data=solo_nombre,orient="index")
-                        data1x = pd.concat([data1x, solo_nombre],axis=1, ignore_index=True)
+                        only_name = pd.DataFrame.from_dict(data=only_name,orient="index")
+                        data1x = pd.concat([data1x, only_name],axis=1, ignore_index=True)
                         smiles_ok.append(smiles)
                         t.markdown("Calculating descriptors for molecule: " + str(i +1) +"/" + str(len(smiles_ph_ok)))
                     except:
@@ -330,25 +327,25 @@ def calcular_descriptores(data):
 
 def applicability_domain(prediction_set_descriptors, descriptors_model):
     
-    descr_training = pd.read_csv("models/" + "OCT1_training_DA.csv")
+    descr_training = pd.read_csv("models/" + "ADB_training_DA.csv")
     desc = descr_training[descriptors_model]
     t_transpuesto = desc.T
     multi = t_transpuesto.dot(desc)
     inversa = np.linalg.inv(multi)
     
-    # Luego la base de testeo
+    # In test set
     desc_sv = prediction_set_descriptors.copy()
-    sv_transpuesto = desc_sv.T
+    transpost_sv = desc_sv.T
     
     multi1 = desc_sv.dot(inversa)
-    sv_transpuesto.reset_index(drop=True, inplace=True) 
-    multi2 = multi1.dot(sv_transpuesto)
+    transpost_sv.reset_index(drop=True, inplace=True) 
+    multi2 = multi1.dot(transpost_sv)
     diagonal = np.diag(multi2)
     
     # valor de corte para determinar si entra o no en el DA
     
-    h2 = 2*(desc.shape[1]/desc.shape[0])  ## El h es 2 x Num de descriptores dividido el Num compuestos training. Mas estricto
-    h3 = 3*(desc.shape[1]/desc.shape[0])  ##  Mas flexible
+    h2 = 2*(desc.shape[1]/desc.shape[0])  ## H is 2 x number of descriptors divide by the number of training compounds more estrict
+    h3 = 3*(desc.shape[1]/desc.shape[0])  ##  More flexible
     
     diagonal_comparacion = list(diagonal)
     resultado_palanca2 =[]
@@ -506,7 +503,7 @@ if uploaded_file_1 is not None:
     run = st.button("RUN")
     if run == True:
         data = pd.read_csv(uploaded_file_1,sep="\t",header=None)       
-        descriptors_total, smiles_list = calcular_descriptores(data)
+        descriptors_total, smiles_list = descriptor_calculator(data)
         X_final1, smiles_final = all_correct_model(descriptors_total,loaded_desc, smiles_list)
         final_file, styled_df = predictions(loaded_model, loaded_desc, X_final1)
         figure  = final_plot(final_file)  
@@ -527,7 +524,7 @@ else:
     st.info('👈🏼👈🏼👈🏼      Awaiting for TXT file to be uploaded.')
     if st.button('Press to use Example Dataset'):
         data = pd.read_csv("example_file.txt",sep="\t",header=None)
-        descriptors_total, smiles_list = calcular_descriptores(data)
+        descriptors_total, smiles_list = descriptor_calculator(data)
         X_final1, smiles_final = all_correct_model(descriptors_total,loaded_desc, smiles_list)
         final_file, styled_df = predictions(loaded_model, loaded_desc, X_final1)
         figure  = final_plot(final_file)  
