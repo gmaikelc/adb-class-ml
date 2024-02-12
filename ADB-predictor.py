@@ -25,7 +25,7 @@ import streamlit as st
 from PIL import Image
 import io
 import base64
-
+from streamlit_ketcher import st_ketcher
 
 #%% PAGE CONFIG
 
@@ -88,6 +88,9 @@ st.sidebar.markdown("""
 
 uploaded_file_1 = st.sidebar.file_uploader("Upload a TXT file with one SMILES per line", type=["txt"])
 
+molecule = st.text_input("Molecule", "CCO")
+smile_code = st_ketcher(molecule)
+st.markdown(f"Smile code: ``{smile_code}``")
 
 #%% Standarization by MOLVS ####
 ####---------------------------------------------------------------------------####
